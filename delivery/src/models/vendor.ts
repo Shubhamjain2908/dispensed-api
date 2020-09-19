@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { VehicleDoc } from './vehicle';
 
 interface VendorAttrs {
     vendor_id: string;
@@ -11,10 +12,10 @@ interface VendorModel extends mongoose.Model<VendorDoc> {
 
 interface VendorDoc extends mongoose.Document {
     vendor_id: string;
-    vehicle_id: mongoose.Schema.Types.ObjectId;
+    vehicle_id: VehicleDoc;
 }
 
-const VendorSchema = new mongoose.Schema(
+const vendorSchema = new mongoose.Schema(
     {
         vendor_id: {
             type: String,
@@ -22,7 +23,8 @@ const VendorSchema = new mongoose.Schema(
         },
         vehicle_id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Vehicle'
+            ref: 'Vehicle',
+            required: true
         },
     },
     {
@@ -36,11 +38,11 @@ const VendorSchema = new mongoose.Schema(
     }
 );
 
-VendorSchema.statics.build = (attrs: VendorAttrs) => {
+vendorSchema.statics.build = (attrs: VendorAttrs) => {
     return new Vendor(attrs);
 };
 
-const Vendor = mongoose.model<VendorDoc, VendorModel>('Vendor', VendorSchema);
+const Vendor = mongoose.model<VendorDoc, VendorModel>('Vendor', vendorSchema);
 
 export { Vendor };
 

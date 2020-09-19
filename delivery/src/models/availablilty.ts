@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import { SlotsDoc } from './slot';
+import { VehicleDoc } from './vehicle';
 
 interface AvailabilityAttrs {
     vehicle_id: mongoose.Schema.Types.ObjectId;
@@ -10,11 +12,11 @@ interface AvailabilityModel extends mongoose.Model<AvailabilityDoc> {
 }
 
 interface AvailabilityDoc extends mongoose.Document {
-    vehicle_id: mongoose.Schema.Types.ObjectId;
-    slot_id: mongoose.Schema.Types.ObjectId;
+    vehicle_id: VehicleDoc;
+    slot_id: SlotsDoc;
 }
 
-const AvailabilitySchema = new mongoose.Schema(
+const availabilitySchema = new mongoose.Schema(
     {
         vehicle_id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -36,11 +38,11 @@ const AvailabilitySchema = new mongoose.Schema(
     }
 );
 
-AvailabilitySchema.statics.build = (attrs: AvailabilityAttrs) => {
+availabilitySchema.statics.build = (attrs: AvailabilityAttrs) => {
     return new Availability(attrs);
 };
 
-const Availability = mongoose.model<AvailabilityDoc, AvailabilityModel>('Availability', AvailabilitySchema);
+const Availability = mongoose.model<AvailabilityDoc, AvailabilityModel>('Availability', availabilitySchema);
 
 export { Availability };
 

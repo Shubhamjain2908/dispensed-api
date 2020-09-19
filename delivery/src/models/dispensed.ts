@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import { SlotsDoc } from './slot';
+import { VehicleDoc } from './vehicle';
 
 interface DispensedAttrs {
     vehicle_id: mongoose.Schema.Types.ObjectId;
@@ -11,12 +13,12 @@ interface DispensedModel extends mongoose.Model<DispensedDoc> {
 }
 
 interface DispensedDoc extends mongoose.Document {
-    vehicle_id: mongoose.Schema.Types.ObjectId;
-    slot_id: mongoose.Schema.Types.ObjectId;
+    vehicle_id: VehicleDoc;
+    slot_id: SlotsDoc;
     weight: number;
 }
 
-const DispensedSchema = new mongoose.Schema(
+const dispensedSchema = new mongoose.Schema(
     {
         vehicle_id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -45,11 +47,11 @@ const DispensedSchema = new mongoose.Schema(
     }
 );
 
-DispensedSchema.statics.build = (attrs: DispensedAttrs) => {
+dispensedSchema.statics.build = (attrs: DispensedAttrs) => {
     return new Dispensed(attrs);
 };
 
-const Dispensed = mongoose.model<DispensedDoc, DispensedModel>('Dispensed', DispensedSchema);
+const Dispensed = mongoose.model<DispensedDoc, DispensedModel>('Dispensed', dispensedSchema);
 
 export { Dispensed };
 

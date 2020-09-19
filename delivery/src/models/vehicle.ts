@@ -14,7 +14,7 @@ interface VehicleDoc extends mongoose.Document {
     max_weight: number;
 }
 
-const VehicleSchema = new mongoose.Schema(
+const vehicleSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -37,11 +37,11 @@ const VehicleSchema = new mongoose.Schema(
     }
 );
 
-VehicleSchema.statics.build = (attrs: VehicleAttrs) => {
+vehicleSchema.statics.build = (attrs: VehicleAttrs) => {
     return new Vehicle(attrs);
 };
 
-const Vehicle = mongoose.model<VehicleDoc, VehicleModel>('Vehicle', VehicleSchema);
+const Vehicle = mongoose.model<VehicleDoc, VehicleModel>('Vehicle', vehicleSchema);
 
-export { Vehicle };
+export { Vehicle, VehicleDoc };
 

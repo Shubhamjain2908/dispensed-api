@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 interface SlotsAttrs {
     label: string;
-    start_time: Date;
-    end_time: Date;
+    start_time: String;
+    end_time: String;
 }
 
 interface SlotsModel extends mongoose.Model<SlotsDoc> {
@@ -12,8 +12,8 @@ interface SlotsModel extends mongoose.Model<SlotsDoc> {
 
 interface SlotsDoc extends mongoose.Document {
     label: string;
-    start_time: Date;
-    end_time: Date;
+    start_time: String;
+    end_time: String;
 }
 
 const SlotsSchema = new mongoose.Schema(
@@ -23,10 +23,10 @@ const SlotsSchema = new mongoose.Schema(
             required: true
         },
         start_time: {
-            type: Date
+            type: String
         },
         end_time: {
-            type: Date
+            type: String
         },
     },
     {
@@ -46,5 +46,5 @@ SlotsSchema.statics.build = (attrs: SlotsAttrs) => {
 
 const Slots = mongoose.model<SlotsDoc, SlotsModel>('Slots', SlotsSchema);
 
-export { Slots };
+export { Slots, SlotsDoc };
 
