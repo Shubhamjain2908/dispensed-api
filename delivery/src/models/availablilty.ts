@@ -13,7 +13,7 @@ interface AvailabilityModel extends mongoose.Model<AvailabilityDoc> {
 
 interface AvailabilityDoc extends mongoose.Document {
     vehicle_id: VehicleDoc;
-    slot_id: SlotsDoc;
+    slot_id: String | SlotsDoc;
 }
 
 const availabilitySchema = new mongoose.Schema(
@@ -44,5 +44,5 @@ availabilitySchema.statics.build = (attrs: AvailabilityAttrs) => {
 
 const Availability = mongoose.model<AvailabilityDoc, AvailabilityModel>('Availability', availabilitySchema);
 
-export { Availability };
+export { Availability, AvailabilityDoc };
 

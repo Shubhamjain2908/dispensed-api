@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 interface VehicleAttrs {
     name: string;
     max_weight: number;
+    max_day_limit: number;
 }
 
 interface VehicleModel extends mongoose.Model<VehicleDoc> {
@@ -12,6 +13,7 @@ interface VehicleModel extends mongoose.Model<VehicleDoc> {
 interface VehicleDoc extends mongoose.Document {
     name: string;
     max_weight: number;
+    max_day_limit: number;
 }
 
 const vehicleSchema = new mongoose.Schema(
@@ -25,6 +27,10 @@ const vehicleSchema = new mongoose.Schema(
             required: true,
             default: 0
         },
+        max_day_limit: {
+            type: Number,
+            default: 1
+        }
     },
     {
         toJSON: {

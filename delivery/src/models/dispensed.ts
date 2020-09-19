@@ -6,6 +6,7 @@ interface DispensedAttrs {
     vehicle_id: mongoose.Schema.Types.ObjectId;
     slot_id: mongoose.Schema.Types.ObjectId;
     weight: number;
+    vendor_id: number;
 }
 
 interface DispensedModel extends mongoose.Model<DispensedDoc> {
@@ -16,6 +17,7 @@ interface DispensedDoc extends mongoose.Document {
     vehicle_id: VehicleDoc;
     slot_id: SlotsDoc;
     weight: number;
+    vendor_id: number;
 }
 
 const dispensedSchema = new mongoose.Schema(
@@ -34,6 +36,9 @@ const dispensedSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        vendor_id: {
+            type: Number,
+        }
     },
     {
         toJSON: {
@@ -53,5 +58,5 @@ dispensedSchema.statics.build = (attrs: DispensedAttrs) => {
 
 const Dispensed = mongoose.model<DispensedDoc, DispensedModel>('Dispensed', dispensedSchema);
 
-export { Dispensed };
+export { Dispensed, DispensedDoc };
 
