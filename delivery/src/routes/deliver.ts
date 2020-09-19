@@ -7,10 +7,11 @@ const router = express.Router();
 router.post(
     '/api/delivery',
     [
-        body('title').not().isEmpty().withMessage('Title is required'),
-        body('price')
-            .isFloat({ gt: 0 })
-            .withMessage('Price must be greater than 0'),
+        body().isArray().withMessage('Request must be an array'),
+        body('*.order_id').not().isEmpty().withMessage('Order Id is required'),
+        body('*.order_weight')
+            .isFloat({ gt: 0, lt: 101 })
+            .withMessage('Order weight must be greater than 0 & less that 100'),
     ],
     validateRequest,
     async (req: Request, res: Response) => {
