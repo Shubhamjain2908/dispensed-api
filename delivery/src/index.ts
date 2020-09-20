@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { app } from './app';
 
+const PORT = process.env.PORT || 3000;
+
 const start = async () => {
     console.log('Delivery service starting...');
 
@@ -15,8 +17,8 @@ const start = async () => {
     });
     console.log('Delivery Service: Connected to MongoDB!!!')
 
-    app.listen(3000, () => {
-        console.log('Delivery Service: Listening on port 3000!')
+    app.listen(PORT, () => {
+        console.log(`Delivery Service: Listening on port: ${PORT}!`)
     });
 
 };
