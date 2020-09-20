@@ -3,9 +3,9 @@ import { SlotsDoc } from './slot';
 import { VehicleDoc } from './vehicle';
 
 interface DispensedAttrs {
-    vehicle_id: mongoose.Schema.Types.ObjectId;
-    slot_id: mongoose.Schema.Types.ObjectId;
-    weight: number;
+    vehicle_id: mongoose.Schema.Types.ObjectId | string;
+    slot_id: mongoose.Schema.Types.ObjectId | string;
+    weight?: number;
     vendor_id: number;
 }
 
@@ -35,6 +35,7 @@ const dispensedSchema = new mongoose.Schema(
         weight: {
             type: Number,
             required: true,
+            default: 100
         },
         vendor_id: {
             type: Number,

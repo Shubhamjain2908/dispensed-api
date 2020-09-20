@@ -1,5 +1,5 @@
 export interface AvailableVehicles {
-    vehicle_id: String,
+    vehicle_id: string,
     remaining_count: number,
     max_weight: number
 }
