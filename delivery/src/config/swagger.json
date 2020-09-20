@@ -1,0 +1,156 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server delivery server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+        "version": "1.0.0",
+        "title": "Swagger delivery",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "apiteam@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "delivery",
+            "description": "Assignining the orders",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/delivery": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Add a new order to the store",
+                "description": "",
+                "operationId": "addPet",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "slotId",
+                        "description": "SLot Id in which the order needs to be delivered",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Order object that needs to be assigned to the vendor",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid SlotID supplied"
+                    },
+                    "404": {
+                        "description": "Slot not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    }
+                },
+                "security": [
+                    {
+                        "orderstore_auth": [
+                            "write:orders",
+                            "read:orders"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "securityDefinitions": {
+        "orderstore_auth": {
+            "type": "oauth2",
+            "authorizationUrl": "http://orderstore.swagger.io/oauth/dialog",
+            "flow": "implicit",
+            "scopes": {
+                "write:orders": "modify orders in your account",
+                "read:orders": "read your orders"
+            }
+        },
+        "api_key": {
+            "type": "apiKey",
+            "name": "api_key",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "Order": {
+            "type": "array",
+            "xml": {
+                "name": "order",
+                "wrapped": true
+            },
+            "items": {
+                "type": "object",
+                "properties": {
+                    "order_id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "order_weight": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            }
+        },
+        "ApiResponse": {
+            "type": "array",
+            "xml": {
+                "name": "tag",
+                "wrapped": true
+            },
+            "items": {
+                "type": "object",
+                "properties": {
+                    "vehicle_type": {
+                        "type": "string"
+                    },
+                    "delivery_partner_id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "list_order_ids_assigned": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}
