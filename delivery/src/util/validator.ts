@@ -58,6 +58,7 @@ const getAvailableVehiclesAndVendors = async (slotId: String): Promise<Array<Ava
             }
         ]
     );
+    // add sort as well
     return await checkRemainingVehiclesForTheCurrentDate(currentDateDispensed, availableVehiclesForSlot);
 }
 
@@ -81,3 +82,4 @@ const checkRemainingVehiclesForTheCurrentDate = async (currentDateDispensed: Arr
 }
 
 export { validateSlot, validateAndReturnTotalWeight, getAvailableVehiclesAndVendors };
+
